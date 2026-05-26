@@ -1,10 +1,10 @@
-from app.database.repositories.card_repository import CardRepository
-from app.modules.card.dto.update_card import UpdateCardDto
+from app.database.repositories.webhook_repository import WebhookRepository
+from app.modules.webhook.dto.update_card import UpdateCardDto
 from app.modules.customer.service.customer_service import CustomerService
 from fastapi import HTTPException, status
 
-class CardService:
-    def __init__(self, customer_service: CustomerService, card_repo: CardRepository):
+class WebhookService:
+    def __init__(self, customer_service: CustomerService, card_repo: WebhookRepository):
         self.customer_service = customer_service
         self.card_repository = card_repo
         
@@ -17,12 +17,20 @@ class CardService:
               detail=f"Evento ja registrado"
           )
         
-        ownerEmail = await self.customer_service.find_customer_by_email(dto.cliente_email)
+        customer = await self.customer_service.find_customer_by_email(dto.cliente_email)
 
-        if(not ownerEmail):
+        if(not customer):
           raise HTTPException(
               status_code=status.HTTP_404_NOT_FOUND,
               detail=f"Email {dto.cliente_email} não foi encontrado"
           )
         
+        prioridade = 'prioridade_normal'
+
+        if(customer.valor_patrimonio >= 200000):
+           prioridade = 'prioridade_alta'
+
+        await self.customer_service.update_priority_record(dto.cliente_email, prioridade)
+
         await self.card_repository.create(dto)
+        

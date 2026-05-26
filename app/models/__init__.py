@@ -1,2 +1,2 @@
-from .cliente import Cliente
-from .evento_processado import EventoProcessado
+from ..modules.customer.models.cliente import Cliente
+from ..modules.webhook.models.event_process import EventoProcessado

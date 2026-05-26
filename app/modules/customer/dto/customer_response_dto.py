@@ -5,6 +5,6 @@ class CustomerResponseDto(BaseModel):
     cliente_nome: str
     cliente_email: str
     status: str
-
+    valor_patrimonio: float
     class Config:
         from_attributes = True

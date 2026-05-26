@@ -1,11 +1,13 @@
 from app.modules.customer.dto.customer_response_dto import CustomerResponseDto
 from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
+from app.modules.customer.models.cliente import Cliente
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
-from app.models.cliente import Cliente
 from sqlalchemy import select 
-class CustomerRepository:
+from sqlalchemy import update
+from typing import Literal
 
+class CustomerRepository:
   def __init__(self, db: AsyncSession):
         self.db = db
 
@@ -38,7 +40,8 @@ class CustomerRepository:
           id=customer.id,
           cliente_nome=customer.cliente_nome,
           cliente_email=customer.cliente_email,
-          status = customer.status
+          status = customer.status,
+          valor_patrimonio = customer.valor_patrimonio
         )
       else: 
          return None
@@ -46,3 +49,17 @@ class CustomerRepository:
       await self.db.rollback()
       print(f"Erro de banco de dados: {e}")
       raise Exception("Falha ao encontrar o cliente no banco de dados")
+    
+  async def update_priority(self, email: str, new_priority: Literal["prioridade_alta", "prioridade_normal"]):
+    try:
+      await self.db.execute(
+          update(Cliente).where(Cliente.cliente_email == email).values(
+            prioridade = new_priority,
+            status = "Processado"          
+          )
+      )
+      await self.db.commit()
+
+    except SQLAlchemyError as e:
+      await self.db.rollback()
+      print(f"Erro de banco de dados: {e}")

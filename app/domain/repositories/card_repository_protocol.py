@@ -1,7 +1,7 @@
-from app.modules.card.dto.update_card import UpdateCardDto
+from app.modules.webhook.dto.update_card import UpdateCardDto
 from typing import Protocol
 
-class CardRepositoryProtocol(Protocol):
+class WebhookRepositoryProtocol(Protocol):
 
     async def card_update(self, dto: UpdateCardDto):
         ...

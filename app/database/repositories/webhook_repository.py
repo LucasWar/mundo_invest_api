@@ -1,9 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.evento_processado import EventoProcessado
-from app.modules.card.dto.update_card import UpdateCardDto
+from app.modules.webhook.models.event_process import EventoProcessado
+from app.modules.webhook.dto.update_card import UpdateCardDto
 from sqlalchemy import select 
 
-class CardRepository:
+class WebhookRepository:
   def __init__(self, db: AsyncSession):
         self.db = db
 

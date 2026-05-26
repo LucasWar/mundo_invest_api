@@ -1,8 +1,8 @@
 from app.domain.repositories.customer_repository_protocol import CustomerRepositoryProtocol
-from app.modules.user.dto.create_user_dto import CreateCustomerDto
+from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
 from fastapi import HTTPException, status
 
-from app.modules.user.dto.customer_response_dto import CustomerResponseDto
+from app.modules.customer.dto.customer_response_dto import CustomerResponseDto
 
 class CustomerService:
     def __init__(self, repo: CustomerRepositoryProtocol):

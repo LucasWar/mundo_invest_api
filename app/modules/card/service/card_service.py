@@ -1,6 +1,6 @@
 from app.database.repositories.card_repository import CardRepository
 from app.modules.card.dto.update_card import UpdateCardDto
-from app.modules.user.service.user_service import CustomerService
+from app.modules.customer.service.customer_service import CustomerService
 from fastapi import HTTPException, status
 
 class CardService:

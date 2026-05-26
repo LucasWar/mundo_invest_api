@@ -1,5 +1,5 @@
-from app.modules.user.dto.customer_response_dto import CustomerResponseDto
-from app.modules.user.dto.create_user_dto import CreateCustomerDto
+from app.modules.customer.dto.customer_response_dto import CustomerResponseDto
+from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
 from typing import Protocol
 
 class CustomerRepositoryProtocol(Protocol):

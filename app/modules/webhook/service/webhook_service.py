@@ -1,6 +1,6 @@
 from app.database.repositories.webhook_repository import WebhookRepository
-from app.modules.webhook.dto.update_card import UpdateCardDto
 from app.modules.customer.service.customer_service import CustomerService
+from app.modules.webhook.dto.update_card import UpdateCardDto
 from fastapi import HTTPException, status
 
 class WebhookService:
@@ -34,3 +34,4 @@ class WebhookService:
 
         await self.card_repository.create(dto)
         
+        raise "Operação realizada com sucesso"

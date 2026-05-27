@@ -1,9 +1,9 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import declarative_base
+from app.core.config import DATABASE_URL
 
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg://admin:adminpassword@127.0.0.1:5433/mundoinvest"
 
-engine = create_async_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_async_engine(DATABASE_URL)
 
 SessionLocal = async_sessionmaker(
     bind=engine, 

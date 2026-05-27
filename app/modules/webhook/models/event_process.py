@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String
-from app.database.database import Base
+from app.core.database import Base
 
 class EventoProcessado(Base):
     __tablename__ = "eventos_processados"

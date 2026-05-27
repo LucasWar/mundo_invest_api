@@ -1,5 +1,5 @@
 from fastapi import Depends
-from app.database.database import get_db
+from app.core.database import get_db
 from app.database.repositories.webhook_repository import WebhookRepository
 from app.modules.customer.dependecies import get_customer_service 
 from app.modules.webhook.service.webhook_service import WebhookService

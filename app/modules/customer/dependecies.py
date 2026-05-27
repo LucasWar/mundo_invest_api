@@ -1,5 +1,5 @@
 from fastapi import Depends
-from app.database.database import get_db
+from app.core.database import get_db
 from app.database.repositories.cutomer_repository import CustomerRepository
 from app.modules.customer.service.customer_service import CustomerService
 from app.integrations.pipefy.client import PipefyClient

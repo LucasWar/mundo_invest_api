@@ -1,10 +1,10 @@
-from app.database.repositories.webhook_repository import WebhookRepository
-from app.modules.customer.service.customer_service import CustomerService
+from app.domain.contracts.card_repository_protocol import WebhookRepositoryProtocol
+from app.modules.customer.services.customer_service import CustomerService
 from app.modules.webhook.dto.update_card import UpdateCardDto
 from fastapi import HTTPException, status
 
 class WebhookService:
-    def __init__(self, customer_service: CustomerService, card_repo: WebhookRepository):
+    def __init__(self, customer_service: CustomerService, card_repo: WebhookRepositoryProtocol):
         self.customer_service = customer_service
         self.card_repository = card_repo
         
@@ -34,4 +34,4 @@ class WebhookService:
 
         await self.card_repository.create(dto)
         
-        raise "Operação realizada com sucesso"
+        return "Operação realizada com sucesso"

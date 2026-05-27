@@ -1,5 +1,5 @@
 from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
-from app.modules.customer.service.customer_service import CustomerService
+from app.modules.customer.services.customer_service import CustomerService
 from unittest.mock import AsyncMock, MagicMock
 from fastapi import HTTPException
 import pytest

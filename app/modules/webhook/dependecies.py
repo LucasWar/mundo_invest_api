@@ -1,9 +1,9 @@
 from fastapi import Depends
 from app.core.database import get_db
-from app.database.repositories.webhook_repository import WebhookRepository
+from app.modules.webhook.repositories.webhook_repository import WebhookRepository
 from app.modules.customer.dependecies import get_customer_service 
-from app.modules.webhook.service.webhook_service import WebhookService
-from app.modules.customer.service.customer_service import CustomerService
+from app.modules.webhook.services.webhook_service import WebhookService
+from app.modules.customer.services.customer_service import CustomerService
 
 def get_webhook_repository(db = Depends(get_db)):
     return WebhookRepository(db)

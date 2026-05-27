@@ -1,4 +1,4 @@
-from app.modules.webhook.service.webhook_service import WebhookService
+from app.modules.webhook.services.webhook_service import WebhookService
 from app.modules.webhook.dto.update_card import UpdateCardDto
 from unittest.mock import AsyncMock, MagicMock
 from fastapi import HTTPException
@@ -62,8 +62,8 @@ async def test_card_update_aplica_prioridade_correta(
 
     dto = make_fake_dto()
 
-    with pytest.raises((HTTPException, TypeError)):
-        await webhook_service.card_update(dto)
+
+    await webhook_service.card_update(dto)
 
     mock_card_repo.find_event_by_id.assert_called_once_with(dto.event_id)
 

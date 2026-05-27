@@ -1,5 +1,5 @@
 from app.domain.dto.customer.find_customer_by_email_response import FindCustomerByEmailResponse
-from app.domain.protocol.customer_repository_protocol import CustomerRepositoryProtocol
+from app.domain.contracts.customer_repository_protocol import CustomerRepositoryProtocol
 from app.domain.dto.customer.create_customer_response import CreateCustomerResponseDto
 from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
 from app.integrations.pipefy.client import PipefyClient

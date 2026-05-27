@@ -1,6 +1,6 @@
 from app.domain.dto.customer.create_customer_response import CreateCustomerResponseDto
 from app.modules.customer.dto.create_customer_dto import CreateCustomerDto
-from app.modules.customer.service.customer_service import CustomerService
+from app.modules.customer.services.customer_service import CustomerService
 from app.modules.customer.dependecies import get_customer_service
 from fastapi import APIRouter, Depends, status
 

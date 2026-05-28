@@ -11,3 +11,5 @@ python = "^3.12"
 [tool.poetry.scripts]
 dev = "scripts.commands:dev"
 test = "scripts.commands:test"
+build = "scripts.commands:build"
+down = "scripts.commands:down"

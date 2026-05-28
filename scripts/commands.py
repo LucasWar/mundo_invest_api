@@ -9,3 +9,6 @@ def test():
 
 def build():
     os.system("docker compose up -d")
+
+def down():
+    os.system("docker compose down")

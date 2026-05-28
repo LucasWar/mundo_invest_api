@@ -10,4 +10,4 @@ class Cliente(Base):
     tipo_solicitacao = Column(String, nullable=False)
     valor_patrimonio = Column(Float, nullable=False)
     status = Column(String, default="Aguardando Análise")
-    prioridade = Column(String, nullable=True) # Será preenchido no fluxo 2
+    prioridade = Column(String, nullable=True)

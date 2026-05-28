@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "mundo-invest-backend"
+version = "0.1.0"
+description = ""
+authors = []
+packages = [{include = "scripts"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.scripts]
+dev = "scripts.commands:dev"
+test = "scripts.commands:test"

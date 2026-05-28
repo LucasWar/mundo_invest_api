@@ -4,7 +4,6 @@ from unittest.mock import AsyncMock, MagicMock
 from fastapi import HTTPException
 import pytest
 
-
 @pytest.fixture
 def mock_repo():
     repo = MagicMock()
@@ -13,7 +12,6 @@ def mock_repo():
     repo.update_priority = AsyncMock()
     return repo
 
-
 @pytest.fixture
 def mock_pipefy():
     client = MagicMock()
@@ -21,11 +19,9 @@ def mock_pipefy():
     client.update_card_priority = AsyncMock()
     return client
 
-
 @pytest.fixture
 def service(mock_repo, mock_pipefy):
     return CustomerService(repo=mock_repo, pipefy_client=mock_pipefy)
-
 
 def make_fake_customer(**overrides):
     customer = MagicMock()
@@ -68,7 +64,7 @@ async def test_create_customer_success(service, mock_repo, mock_pipefy):
 @pytest.mark.asyncio
 async def test_create_customer_raises_conflict_if_email_exists(service, mock_repo, mock_pipefy):
     """Deve lançar 409 e não chamar create nem pipefy quando email já existe"""
-    mock_repo.find_customer_by_email.return_value = make_fake_customer()  # email ocupado
+    mock_repo.find_customer_by_email.return_value = make_fake_customer()
 
     dto = CreateCustomerDto(
         cliente_email="existente@email.com",

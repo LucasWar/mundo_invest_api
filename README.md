@@ -74,34 +74,94 @@ PIPEFY_PIPE_ID=123456
 
 # 🐳 Executando Apenas o Banco de Dados
 
-Caso deseje executar apenas o PostgreSQL via Docker:
+O projeto permite subir apenas o PostgreSQL de forma isolada.
+
+Isso é útil para:
+
+* desenvolvimento local
+* execução manual da API
+* testes locais sem container da aplicação
+
+## Comando
 
 ```bash
-docker compose up postgres -d
+docker compose up db -d
 ```
 
 O banco ficará disponível em:
 
 ```text
-localhost:5432
+localhost:5433
 ```
 
 ---
 
 # 🐳 Executando Toda a Aplicação
 
-## Build + Inicialização
+O projeto também pode ser totalmente containerizado utilizando Docker Compose.
+
+Neste modo:
+
+* PostgreSQL sobe automaticamente
+* API FastAPI sobe automaticamente
+* as variáveis de ambiente de produção são carregadas
+* toda a aplicação roda de forma isolada
+
+## Build da Aplicação
 
 ```bash
-make dev
+poetry run build
 ```
 
 Este comando:
 
-* Faz o build da aplicação
-* Inicializa o PostgreSQL
-* Inicializa a API FastAPI
-* Ativa hot reload
+* sobe o PostgreSQL
+* sobe a API
+* executa toda a aplicação em ambiente containerizado
+
+---
+
+## Executar Apenas Ambiente de Desenvolvimento
+
+```bash
+poetry run dev
+```
+
+Este comando:
+
+* sobe apenas o PostgreSQL via Docker
+* executa a API localmente
+* ativa hot reload do Uvicorn
+* facilita debug e desenvolvimento
+
+---
+
+## Executar Containers
+
+```bash
+docker compose up
+```
+
+ou:
+
+```bash
+docker compose up -d
+```
+
+---
+
+## Build + Inicialização
+
+```bash
+docker compose up --build
+```
+
+Este comando:
+
+* realiza o build da imagem
+* sobe o PostgreSQL
+* sobe a API
+* aplica o ambiente containerizado completo
 
 ---
 
@@ -128,21 +188,51 @@ http://localhost:8000/redoc
 ## Criar Migration
 
 ```bash
-make migration
+alembic revision --autogenerate -m "migration_name"
 ```
 
 ## Aplicar Migration
 
 ```bash
-make migrate
+alembic upgrade head
 ```
+
+---
+
+# ⚙️ Variáveis de Ambiente
+
+O projeto utiliza dois arquivos de ambiente separados.
+
+---
+
+## `.env`
+
+Responsável pelo ambiente de desenvolvimento local.
+
+Utilizado principalmente quando:
+
+* a API roda localmente
+* apenas o banco está em Docker
+* desenvolvimento sem containerização completa
+
+---
+
+## `.env.prod`
+
+Responsável pelo ambiente containerizado/build.
+
+Utilizado pelo Docker Compose para:
+
+* inicializar PostgreSQL
+* inicializar API
+* configurar variáveis do ambiente containerizado
 
 ---
 
 # 🧪 Executando os Testes
 
 ```bash
-make test
+poetry run test
 ```
 
 ou:
@@ -587,14 +677,118 @@ Valida:
 
 # 🐳 Docker
 
-O projeto foi totalmente containerizado utilizando Docker.
+O projeto foi preparado para suportar dois fluxos distintos de execução.
 
-Benefícios:
+---
 
-* Ambiente reproduzível
-* Facilidade de setup
-* Isolamento da aplicação
-* Padronização do ambiente
+## 1. Ambiente de Desenvolvimento
+
+Neste modo:
+
+* apenas o PostgreSQL roda em container
+* a API roda localmente
+* hot reload permanece ativo
+* facilita desenvolvimento e debug
+
+Comando:
+
+```bash
+poetry run dev
+```
+
+Fluxo executado:
+
+```text
+Docker Compose → sobe PostgreSQL
+↓
+Uvicorn local → inicia FastAPI com --reload
+```
+
+---
+
+## 2. Ambiente Containerizado/Build
+
+Neste modo:
+
+* PostgreSQL roda em container
+* API FastAPI roda em container
+* ambiente totalmente isolado
+* simula ambiente próximo de produção
+
+Comando:
+
+```bash
+poetry run build
+```
+
+---
+
+## Scripts Poetry
+
+Os comandos principais do projeto foram centralizados utilizando Poetry.
+
+Scripts disponíveis:
+
+### Desenvolvimento
+
+```bash
+poetry run dev
+```
+
+### Testes
+
+```bash
+poetry run test
+```
+
+### Build Containerizado
+
+```bash
+poetry run build
+```
+
+A utilização do Poetry permitiu:
+
+* padronização dos comandos
+* simplificação do setup
+* melhor experiência de desenvolvimento
+* centralização da execução do projeto
+
+---
+
+## Docker Compose
+
+O `docker-compose.yml` foi responsável por:
+
+* orquestrar os containers
+* controlar dependências entre serviços
+* configurar healthcheck do banco
+* centralizar variáveis de ambiente
+* persistir os dados do PostgreSQL via volume
+
+---
+
+## Healthcheck
+
+Foi implementado healthcheck no PostgreSQL para garantir que a API só seja iniciada após o banco estar disponível.
+
+Isso reduz falhas de inicialização e melhora confiabilidade do ambiente.
+
+---
+
+## Variáveis de Ambiente Separadas
+
+A separação entre `.env` e `.env.prod` foi utilizada para isolar:
+
+* ambiente local de desenvolvimento
+* ambiente containerizado/build
+
+Essa abordagem facilita:
+
+* manutenção
+* configuração futura de ambientes
+* deploy
+* escalabilidade
 
 ---
 

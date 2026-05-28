@@ -47,9 +47,9 @@ Antes de iniciar, é necessário possuir instalado:
 # 📦 Clonando o Projeto
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/LucasWar/mundo_invest_api.git
 
-cd nome-do-projeto
+cd mundo_invest_api
 ```
 
 ---
